@@ -1,0 +1,14 @@
+html {
+  box-sizing: border-box;
+  height: 100%;
+  font-family: 'Playfair Display', serif;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0 auto;
+  height: 100%;
+  background-color: #ddc6fa;
+}
