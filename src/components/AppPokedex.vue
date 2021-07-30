@@ -7,9 +7,9 @@
         class="pokemons-list__item"
         v-for="pokemon in repPokemons"
         :key="pokemon.name"
-        @click="onModal(pokemon.id)"
+        @click="onModal(pokemon)"
       >
-       <AppModal v-show="modal"/>
+       <AppModal v-show="modal" :pokemon="pokemon"/>
         <img
           class="pokemons-list__item-img"
           :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`"
@@ -33,6 +33,7 @@ export default {
     return {
       paginatorStep: +localStorage.getItem('step'),
       modal: false,
+      selectedPokemon: null,
     };
   },
   computed: {
@@ -54,10 +55,9 @@ export default {
         this.getPokemons(this.paginatorStep);
       } else return;
     },
-    onModal(id){
+    onModal(pokemon){
+      this.selectedPokemon = pokemon
       this.modal = !this.modal
-      console.log(id)
-      return id
     },
   },
   mounted() {
