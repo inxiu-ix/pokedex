@@ -2,10 +2,10 @@
   <div class="fixed-overlay">
     <div class="modal">
       <div class="sprite-pokemon">
-        <!-- <img
+        <img
           class="sprite"
           :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`"
-        /> -->
+        />
       </div>
       <!-- <h1>{{ pokemon.name }}</h1> -->
       <div class="abilities-container">
@@ -28,6 +28,7 @@
 <script>
 export default {
   name: 'modal',
+  props:['pokemon'],
   methods: {
   },
 };
