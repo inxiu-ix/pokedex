@@ -22,6 +22,6 @@ export default {
   height: 100%;
   padding: 9px 0px;
   background-color: #ddc6fa;
-  /* overflow-y: hidden; */
+  overflow-y: hidden;
 }
 </style>

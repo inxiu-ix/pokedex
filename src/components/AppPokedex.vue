@@ -7,7 +7,9 @@
         class="pokemons-list__item"
         v-for="pokemon in repPokemons"
         :key="pokemon.name"
+        @click="onModal(pokemon.id)"
       >
+       <AppModal v-show="modal"/>
         <img
           class="pokemons-list__item-img"
           :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`"
@@ -20,13 +22,17 @@
 </template>
 
 <script>
-// import instance from '@/api/instance'
+import AppModal from '@/components/AppModal'
 import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'pokedex',
+  components: {
+    AppModal,
+  },
   data() {
     return {
       paginatorStep: +localStorage.getItem('step'),
+      modal: false,
     };
   },
   computed: {
@@ -38,7 +44,7 @@ export default {
       if (this.paginatorStep < 1118) {
         localStorage.setItem('step', (this.paginatorStep += 10));
         this.getPokemons(this.paginatorStep);
-        const pokedex = document.querySelector('.pokedex-container');
+        const pokedex = document.querySelector('.pokemons-list');
         pokedex.scrollLeft = 0;
       } else return;
     },
@@ -48,11 +54,14 @@ export default {
         this.getPokemons(this.paginatorStep);
       } else return;
     },
+    onModal(id){
+      this.modal = !this.modal
+      console.log(id)
+      return id
+    },
   },
   mounted() {
     this.getPokemons(this.paginatorStep);
-    // const res = await instance.get('pokemon/11/');
-    // console.log('respok >>>', res.data)
   },
 };
 </script>
@@ -89,12 +98,14 @@ export default {
   background-color: #f5e9fd;
   padding: 10px 5px;
   border: 1px solid #a284da;
+  transition: all 0.5s ease-out;
 }
 
 .pokemons-list__item-img {
   margin: 0 25px;
   width: 250px;
   height: 250px;
+  transition: all 0.5s ease-out;
 }
 
 .pokemon-list__btn {
@@ -116,6 +127,7 @@ export default {
   top: 14px;
   left: 17px;
   transform: rotate(12deg);
+  transition: all 0.5s ease-out;
 }
 
 .prev-btn::after {
@@ -129,6 +141,7 @@ export default {
   top: 161px;
   left: 17px;
   transform: rotate(-12deg);
+  transition: all 0.5s ease-out;
 }
 
 .next-btn::before {
@@ -142,6 +155,7 @@ export default {
   top: 14px;
   left: 17px;
   transform: rotate(-12deg);
+  transition: all 0.5s ease-out;
 }
 
 .next-btn::after {
@@ -155,10 +169,59 @@ export default {
   top: 161px;
   left: 17px;
   transform: rotate(12deg);
+  transition: all 0.5s ease-out;
 }
 
 .pokemons-list__item-title {
+  text-transform: uppercase;
+  font-weight: bold;
   font-size: 15px;
   color: #090217;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+@media (min-width: 768px) {
+  .pokemons-list {
+    padding: 512px 10px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pokemons-list {
+    padding: 113px 10px;
+  }
+
+  .pokemons-list__item:hover {
+    border: 1px solid #aceec6;
+    background-color: #aceec6;
+    cursor: pointer;
+  }
+
+  .pokemon-list__btn:hover {
+    cursor: pointer;
+  }
+
+  .prev-btn:hover::before {
+    background-color: #aceec6;
+    cursor: pointer;
+  }
+
+  .prev-btn:hover::after {
+    background-color: #aceec6;
+    cursor: pointer;
+  }
+
+  .next-btn:hover::after {
+    background-color: #aceec6;
+    cursor: pointer;
+  }
+
+  .next-btn:hover::before {
+    background-color: #aceec6;
+    cursor: pointer;
+  }
 }
 </style>
