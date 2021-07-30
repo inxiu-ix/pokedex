@@ -16,6 +16,7 @@ export default {
       for await (let pokemon of pokemons) {
         const response = await instance.get(pokemon.url)
         console.log('res>>>', response.data)
+        pokemon.types = response.data.types
         pokemon.abilities = response.data.abilities
         pokemon.id = response.data.id
       }
